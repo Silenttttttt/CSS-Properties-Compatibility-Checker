@@ -46,6 +46,10 @@ Once completed, a `compatibility_results.json` file will be generated containing
 
 ## Workflow:
 
+- Update the MDN data at least once a week using Download_mdn_data.py.
+
+- Use Evaluate_css.py to analyze any CSS or Vue.js files/directories as often as needed.
+
 ## Updating MDN Data:
 
 To update the MDN data, simply run the `Download_mdn_data.py` script again. It will fetch the latest data and update the `consolidated_data.json`.
