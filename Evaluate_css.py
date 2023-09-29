@@ -244,8 +244,10 @@ def main(input_path):
             worst_properties.sort(key=lambda x: x[1])
             results["worst_properties"] = worst_properties[:10]  # Adjust the number as needed
     
+    
     with open('compatibility_results.json', 'w') as f:
         json.dump(results, f, indent=4)
+    print("Results saved to compatibility_results.json!")
 
 if __name__ == "__main__":
     input_path = input("Please enter the path to your CSS or Vue.js directory/file: ")
