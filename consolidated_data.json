@@ -2323,14 +2323,24 @@
             "oculus": "mirror",
             "opera": "mirror",
             "opera_android": "mirror",
-            "safari": {
-                "prefix": "-webkit-",
-                "version_added": "5.1"
-            },
-            "safari_ios": {
-                "prefix": "-webkit-",
-                "version_added": "4.2"
-            },
+            "safari": [
+                {
+                    "version_added": "17"
+                },
+                {
+                    "prefix": "-webkit-",
+                    "version_added": "5.1"
+                }
+            ],
+            "safari_ios": [
+                {
+                    "version_added": "17"
+                },
+                {
+                    "prefix": "-webkit-",
+                    "version_added": "4.2"
+                }
+            ],
             "samsunginternet_android": "mirror",
             "webview_android": "mirror"
         },
@@ -6974,37 +6984,14 @@
     },
     "math-style": {
         "support": {
-            "chrome": [
-                {
-                    "version_added": "109"
-                },
-                {
-                    "version_added": "83",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "#enable-experimental-web-platform-features"
-                        }
-                    ]
-                }
-            ],
+            "chrome": {
+                "version_added": "109"
+            },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "117"
-                },
-                {
-                    "version_added": "83",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.math-style.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                }
-            ],
+            "firefox": {
+                "version_added": "117"
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false
@@ -8690,63 +8677,25 @@
     },
     "scroll-timeline-name": {
         "support": {
-            "chrome": [
-                {
-                    "version_added": "115"
-                },
-                {
-                    "version_added": "111",
-                    "notes": "The syntax of the shorthand property `scroll-timeline` uses the fixed order of name and then the axis.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "#enable-experimental-web-platform-features",
-                            "value_to_set": "Enabled"
-                        }
-                    ]
-                },
-                {
-                    "version_added": "108",
-                    "notes": "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "#enable-experimental-web-platform-features",
-                            "value_to_set": "Enabled"
-                        }
-                    ]
-                }
-            ],
+            "chrome": {
+                "version_added": "115"
+            },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "111",
-                    "notes": [
-                        "The syntax of the shorthand property uses the fixed order of name and then the axis.",
-                        "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`."
-                    ],
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-driven-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                },
-                {
-                    "version_added": "103",
-                    "version_removed": "110",
-                    "notes": "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-linked-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                }
-            ],
+            "firefox": {
+                "version_added": "111",
+                "notes": [
+                    "The syntax of the shorthand property uses the fixed order of name and then the axis.",
+                    "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`."
+                ],
+                "flags": [
+                    {
+                        "type": "preference",
+                        "name": "layout.css.scroll-driven-animations.enabled",
+                        "value_to_set": "true"
+                    }
+                ]
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false
@@ -9592,21 +9541,9 @@
     },
     "math-shift": {
         "support": {
-            "chrome": [
-                {
-                    "version_added": "109"
-                },
-                {
-                    "version_added": "87",
-                    "impl_url": "https://crrev.com/c/2421662",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "#enable-experimental-web-platform-features"
-                        }
-                    ]
-                }
-            ],
+            "chrome": {
+                "version_added": "109"
+            },
             "chrome_android": "mirror",
             "edge": "mirror",
             "firefox": {
@@ -10533,31 +10470,17 @@
             },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "114",
-                    "notes": "Now supports the <code>x</code> and <code>y</code> values, and also the deprecated <code>horizontal</code> and <code>vertical</code> values.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-driven-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                },
-                {
-                    "version_added": "111",
-                    "version_removed": "114",
-                    "notes": "Supports the deprecated <code>horizontal</code> and <code>vertical</code> values, and not the <code>x</code> and <code>y</code> values.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-driven-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                }
-            ],
+            "firefox": {
+                "version_added": "114",
+                "notes": "Now supports the <code>x</code> and <code>y</code> values, and also the deprecated <code>horizontal</code> and <code>vertical</code> values.",
+                "flags": [
+                    {
+                        "type": "preference",
+                        "name": "layout.css.scroll-driven-animations.enabled",
+                        "value_to_set": "true"
+                    }
+                ]
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false
@@ -14479,31 +14402,17 @@
             },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "114",
-                    "notes": "Now supports the <code>x</code> and <code>y</code> values, and also the deprecated <code>horizontal</code> and <code>vertical</code> values.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-driven-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                },
-                {
-                    "version_added": "111",
-                    "version_removed": "114",
-                    "notes": "Supports the deprecated <code>horizontal</code> and <code>vertical</code> values, and not the <code>x</code> and <code>y</code> values.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-driven-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                }
-            ],
+            "firefox": {
+                "version_added": "114",
+                "notes": "Now supports the <code>x</code> and <code>y</code> values, and also the deprecated <code>horizontal</code> and <code>vertical</code> values.",
+                "flags": [
+                    {
+                        "type": "preference",
+                        "name": "layout.css.scroll-driven-animations.enabled",
+                        "value_to_set": "true"
+                    }
+                ]
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false
@@ -15635,21 +15544,9 @@
             },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "115"
-                },
-                {
-                    "version_added": "104",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.animation-composition.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                }
-            ],
+            "firefox": {
+                "version_added": "115"
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false
@@ -16889,64 +16786,26 @@
     },
     "scroll-timeline-axis": {
         "support": {
-            "chrome": [
-                {
-                    "version_added": "115"
-                },
-                {
-                    "version_added": "111",
-                    "notes": "The syntax of the shorthand property `scroll-timeline` uses the fixed order of name and then the axis.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "#enable-experimental-web-platform-features",
-                            "value_to_set": "Enabled"
-                        }
-                    ]
-                },
-                {
-                    "version_added": "108",
-                    "notes": "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "#enable-experimental-web-platform-features",
-                            "value_to_set": "Enabled"
-                        }
-                    ]
-                }
-            ],
+            "chrome": {
+                "version_added": "115"
+            },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "111",
-                    "notes": [
-                        "The syntax of the shorthand property uses the fixed order of name and then the axis.",
-                        "Supports the deprecated <code>horizontal</code> and <code>vertical</code> values, and not the <code>x</code> and <code>y</code> values.",
-                        "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`."
-                    ],
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-driven-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                },
-                {
-                    "version_added": "103",
-                    "version_removed": "110",
-                    "notes": "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`.",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-linked-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                }
-            ],
+            "firefox": {
+                "version_added": "111",
+                "notes": [
+                    "The syntax of the shorthand property uses the fixed order of name and then the axis.",
+                    "Supports the deprecated <code>horizontal</code> and <code>vertical</code> values, and not the <code>x</code> and <code>y</code> values.",
+                    "The `@scroll-timeline` at-rule is replaced with the longhand properties `scroll-timeline-name` and `scroll-timeline-axis` and the shorthand property `scroll-timeline`."
+                ],
+                "flags": [
+                    {
+                        "type": "preference",
+                        "name": "layout.css.scroll-driven-animations.enabled",
+                        "value_to_set": "true"
+                    }
+                ]
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false
@@ -18441,46 +18300,21 @@
     },
     "animation-timeline": {
         "support": {
-            "chrome": [
-                {
-                    "version_added": "115"
-                },
-                {
-                    "version_added": "85",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "enable-experimental-web-platform-features",
-                            "value_to_set": "enabled"
-                        }
-                    ]
-                }
-            ],
+            "chrome": {
+                "version_added": "115"
+            },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "110",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-driven-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                },
-                {
-                    "version_added": "97",
-                    "version_removed": "110",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.scroll-linked-animations.enabled",
-                            "value_to_set": "true"
-                        }
-                    ]
-                }
-            ],
+            "firefox": {
+                "version_added": "110",
+                "flags": [
+                    {
+                        "type": "preference",
+                        "name": "layout.css.scroll-driven-animations.enabled",
+                        "value_to_set": "true"
+                    }
+                ]
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false
@@ -18743,10 +18577,15 @@
             "oculus": "mirror",
             "opera": "mirror",
             "opera_android": "mirror",
-            "safari": {
-                "prefix": "-webkit-",
-                "version_added": "5.1"
-            },
+            "safari": [
+                {
+                    "version_added": "17"
+                },
+                {
+                    "prefix": "-webkit-",
+                    "version_added": "5.1"
+                }
+            ],
             "safari_ios": "mirror",
             "samsunginternet_android": "mirror",
             "webview_android": "mirror"
@@ -19934,40 +19773,14 @@
     },
     "math-depth": {
         "support": {
-            "chrome": [
-                {
-                    "version_added": "109"
-                },
-                {
-                    "version_added": "87",
-                    "impl_url": "https://crrev.com/c/2423843",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "#enable-experimental-web-platform-features"
-                        }
-                    ]
-                }
-            ],
+            "chrome": {
+                "version_added": "109"
+            },
             "chrome_android": "mirror",
             "edge": "mirror",
-            "firefox": [
-                {
-                    "version_added": "117"
-                },
-                {
-                    "version_added": "83",
-                    "impl_url": "https://bugzil.la/1667090",
-                    "flags": [
-                        {
-                            "type": "preference",
-                            "name": "layout.css.math-depth.enabled",
-                            "value_to_set": "true"
-                        }
-                    ],
-                    "notes": "Implementation lacks support for <code>font-size: math</code> to be complete."
-                }
-            ],
+            "firefox": {
+                "version_added": "117"
+            },
             "firefox_android": "mirror",
             "ie": {
                 "version_added": false

@@ -169,13 +169,14 @@ def process_file(file_path, mdn_data, compatibility_data):
             properties = get_css_properties_from_file(file.read())
     else:
         print("Unsupported file type!")
-        return None, None
+        return None, None, None  # Return None for all three values
 
     if not properties:
-        print("No CSS properties found!")
-        return None, None
+        print(f"No CSS properties found in {file_path}!")
+        return None, None, None  # Return None for all three values
 
     return calculate_compatibility_score(properties, compatibility_data, mdn_data)
+
 
 
 def main(input_path):
@@ -190,32 +191,62 @@ def main(input_path):
         print("Failed to fetch compatibility data.")
         return
 
-    results = {}
+    results = {"files": {}}
+    worst_files = []  # A list to store files and their overall scores
+    all_least_supported = {}  # A dictionary to aggregate least-supported properties
+
     if os.path.isfile(input_path):
         file_scores, overall_score, least_supported = process_file(input_path, mdn_data, compatibility_data)
         if file_scores and overall_score:
-            results[get_key_from_path(input_path)] = {
+            results["files"][get_key_from_path(input_path)] = {
                 'scores': file_scores,
                 'overall_score': overall_score,
                 'least_supported': least_supported
             }
     elif os.path.isdir(input_path):
+        total_scores = {browser: 0 for browser in ['chrome', 'firefox', 'safari', 'edge', 'opera']}
+        total_overall = 0
+        num_files = 0
         for root, _, files in os.walk(input_path):
             for file in tqdm(files, desc="Processing files"):
-                file_path = os.path.join(root, file)
-                file_scores, overall_score, least_supported = process_file(file_path, mdn_data, compatibility_data)
-                if file_scores and overall_score:
-                    results[get_key_from_path(file_path)] = {
-                        'scores': file_scores,
-                        'overall_score': overall_score,
-                        'least_supported': least_supported
-                    }
+                if file.endswith(('.css', '.vue')):
+                    file_path = os.path.join(root, file)
+                    file_scores, overall_score, least_supported = process_file(file_path, mdn_data, compatibility_data)
+                    if file_scores and overall_score:
+                        key = get_key_from_path(file_path)
+                        results["files"][key] = {
+                            'scores': file_scores,
+                            'overall_score': overall_score,
+                            'least_supported': least_supported
+                        }
+                        # Aggregate data for later sorting
+                        num_files += 1
+                        total_overall += overall_score
+                        worst_files.append((key, overall_score))
+                        for prop, score in least_supported:
+                            if prop not in all_least_supported:
+                                all_least_supported[prop] = []
+                            all_least_supported[prop].append(score)
 
-    with open("compatibility_results.json", 'w') as file:
-        json.dump(results, file, indent=2)
+        if num_files > 0:
+            # Calculate average scores
+            avg_scores = {browser: round(score/num_files, 2) for browser, score in total_scores.items()}
+            avg_overall = round(total_overall / num_files, 2)
+            results["average_scores"] = avg_scores
+            results["average_overall_score"] = avg_overall
 
+            # Sort and store worst-performing files and properties
+            worst_files.sort(key=lambda x: x[1])
+            results["worst_files"] = worst_files[:10]  # Adjust the number as needed
+
+            # Calculate average score for each property and sort them
+            worst_properties = [(prop, sum(scores)/len(scores)) for prop, scores in all_least_supported.items()]
+            worst_properties.sort(key=lambda x: x[1])
+            results["worst_properties"] = worst_properties[:10]  # Adjust the number as needed
+    
+    with open('compatibility_results.json', 'w') as f:
+        json.dump(results, f, indent=4)
 
 if __name__ == "__main__":
     input_path = input("Please enter the path to your CSS or Vue.js directory/file: ")
-
     main(input_path)
