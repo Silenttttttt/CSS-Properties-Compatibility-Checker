@@ -195,18 +195,25 @@ def main(input_path):
     worst_files = []  # A list to store files and their overall scores
     all_least_supported = {}  # A dictionary to aggregate least-supported properties
 
+    total_scores = {browser: 0 for browser in ['chrome', 'firefox', 'safari', 'edge', 'opera']}
+    total_overall = 0
+    num_files = 0
+
     if os.path.isfile(input_path):
         file_scores, overall_score, least_supported = process_file(input_path, mdn_data, compatibility_data)
         if file_scores and overall_score:
-            results["files"][get_key_from_path(input_path)] = {
+            key = get_key_from_path(input_path)
+            results["files"][key] = {
                 'scores': file_scores,
                 'overall_score': overall_score,
                 'least_supported': least_supported
             }
+            # Aggregate data for later sorting and average calculation
+            num_files += 1
+            total_overall += overall_score
+            for browser, score in file_scores.items():
+                total_scores[browser] += score
     elif os.path.isdir(input_path):
-        total_scores = {browser: 0 for browser in ['chrome', 'firefox', 'safari', 'edge', 'opera']}
-        total_overall = 0
-        num_files = 0
         for root, _, files in os.walk(input_path):
             for file in tqdm(files, desc="Processing files"):
                 if file.endswith(('.css', '.vue')):
@@ -219,32 +226,33 @@ def main(input_path):
                             'overall_score': overall_score,
                             'least_supported': least_supported
                         }
-                        # Aggregate data for later sorting
+                        # Aggregate data for later sorting and average calculation
                         num_files += 1
                         total_overall += overall_score
+                        for browser, score in file_scores.items():
+                            total_scores[browser] += score
                         worst_files.append((key, overall_score))
                         for prop, score in least_supported:
                             if prop not in all_least_supported:
                                 all_least_supported[prop] = []
                             all_least_supported[prop].append(score)
 
-        if num_files > 0:
-            # Calculate average scores
-            avg_scores = {browser: round(score/num_files, 2) for browser, score in total_scores.items()}
-            avg_overall = round(total_overall / num_files, 2)
-            results["average_scores"] = avg_scores
-            results["average_overall_score"] = avg_overall
+    if num_files > 0:
+        # Calculate average scores
+        avg_scores = {browser: round(total_scores[browser]/num_files, 2) for browser in total_scores}
+        avg_overall = round(total_overall / num_files, 2)
+        results["average_scores"] = avg_scores
+        results["average_overall_score"] = avg_overall
 
-            # Sort and store worst-performing files and properties
-            worst_files.sort(key=lambda x: x[1])
-            results["worst_files"] = worst_files[:10]  # Adjust the number as needed
+        # Sort and store worst-performing files and properties
+        worst_files.sort(key=lambda x: x[1])
+        results["worst_files"] = worst_files[:10]
 
-            # Calculate average score for each property and sort them
-            worst_properties = [(prop, sum(scores)/len(scores)) for prop, scores in all_least_supported.items()]
-            worst_properties.sort(key=lambda x: x[1])
-            results["worst_properties"] = worst_properties[:10]  # Adjust the number as needed
-    
-    
+        # Calculate average score for each property and sort them
+        worst_properties = [(prop, sum(scores)/len(scores)) for prop, scores in all_least_supported.items()]
+        worst_properties.sort(key=lambda x: x[1])
+        results["worst_properties"] = worst_properties[:10]
+
     with open('compatibility_results.json', 'w') as f:
         json.dump(results, f, indent=4)
     print("Results saved to compatibility_results.json!")
